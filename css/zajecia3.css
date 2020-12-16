@@ -1,0 +1,55 @@
+#page3 {
+    clear: both;
+    padding-top: 200px;
+    height: 100vh;
+}
+
+.main-img {
+    border: 2px solid black;
+    /* width: 1; */
+}
+
+#puzzle-wrapper {
+    padding: 100px;
+}
+
+.puzzle {
+    width: 100px;
+    height: 100px;
+    float: left;
+    display: block;
+    border: 1px white solid;
+}
+
+.puzzle img {
+    height: 98px;
+}
+
+#forest-puzzle {
+    margin: 50px auto 50px auto;
+    /* position: relative; */
+    /* display: inline-block; */
+    width: 400px;
+    /* border: 2px double black; */
+}
+
+#page3 .ticTacToe-wrapper {
+    width: 320px;
+    padding-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tic {
+    float: left;
+    display: block;
+    margin: 2px;
+    width: 100px;
+    height: 100px;
+    border: black 2px solid;
+}
+
+.tic h1 {
+    margin-top: 20px;
+    text-align: center;
+}

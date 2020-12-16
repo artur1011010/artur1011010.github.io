@@ -1,0 +1,34 @@
+#page1{
+    padding-top: 100px;
+}
+
+#calculator {
+    border: rgb(129, 127, 255) dashed 5px;
+    margin: 0px;
+    padding: 20px;
+    background-color: rgb(225, 241, 236);
+    /* background-color: #ffffff; */
+}
+
+.manipulation {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    max-width: 600px;
+}
+
+.manipulation .custom-range{
+    width: 300px;
+}
+
+.manipulation input {
+    margin: 5px;
+}
+
+#div2 {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: aquamarine solid 5px;
+    background-color: rgb(255, 210, 127);
+}
