@@ -203,9 +203,10 @@ const updateCounter = (val) => {
 }
 
 const clickCard = (id, name) => {
-    console.log("clickCard() id: " + id + " name: " + name);
-    if (activeCards.length < 2) {
-        updateCounter(1);
+    const wasClicked = cardsFlippedArray.findIndex(item => item === name);
+    updateCounter(1);
+    // console.log("clickCard() id: " + id + " name: " + name);
+    if (activeCards.length < 2 && wasClicked < 0) {
         let image = document.getElementById(id);
         image.style.visibility = "visible";
         if (activeCards.length == 0) {
@@ -216,14 +217,10 @@ const clickCard = (id, name) => {
             card_id.push(id);
             if (activeCards[0] === activeCards[1] &&
                 (card_id[0] === card_id[1] - 1000 || card_id[0] - 1000 === card_id[1])) {
-                if (cardsFlippedArray.findIndex(item => item === name) < 0) {
-                    console.log("cardsFlippedArray.findIndex: " + (cardsFlippedArray.findIndex(item => item == name)))
-                    cardsFlipped += 2;
-                    console.log("cardsFlipped: " + cardsFlipped);
-                    cardsFlippedArray.push(name);
-                    activeCards = [];
-                    card_id = [];
-                }
+                cardsFlipped += 2;
+                cardsFlippedArray.push(name);
+                activeCards = [];
+                card_id = [];
                 if (cardsFlipped == gameBoard.length) {
                     alert("Udalo sie zakonczyć gre z wynikiem: " + stepsCounter + " ruchów");
                     updateCounter();

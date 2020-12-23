@@ -23,18 +23,63 @@ const buildPuzzle = () => {
 
 // dokonczyc przesuwanke
 const playPuzzle = (element) => {
-    console.log("play32() " + element.id);
-    const blank = puzzleBoard.findIndex(a => a === '3_3');
+    // console.log("playPuzzle() " + element.id);
+    const blank_index = puzzleBoard.findIndex(a => a === '3_3');
     const clicked = puzzleBoard.findIndex(a => a === element.id);
-    if ((blank % 4 === clicked % 4) || blank === clicked + 1 || blank === clicked - 1) {
-        let element  = puzzleBoard[blank];
-        puzzleBoard[blank] = puzzleBoard[clicked];
-        puzzleBoard[clicked] = element;
-    }
-    console.log("blank index: " + blank);
+    let blank_img = puzzleBoard[blank_index];
+    console.log("blank index: " + blank_index);
     console.log("clicked index: " + clicked);
+
+
+    if (blank_index % 4 === clicked % 4) {
+        let blank_img = puzzleBoard[blank_index];
+        puzzleBoard[blank_index] = puzzleBoard[clicked];
+        puzzleBoard[clicked] = blank_img;
+    }
+
+    // blank = 15
+    // clicked = 7
+
+    //test -move 2 tiles down
+    // const rowsToMove = ((blank_index - clicked) / 4);
+    // console.log("rowsToMove: " + rowsToMove);
+    // if (rowsToMove > 0) {
+    //     for (let i = rowsToMove; i > 0; i--) {
+    //         console.log("loop");
+    //         let blank_img = puzzleBoard[blank_index];
+    //         console.log("clicked + (4 * i): " + (clicked + (4 * i)));
+    //         puzzleBoard[blank_index] = puzzleBoard[clicked + (4 * i)]; //11
+    //         puzzleBoard[clicked + (4 * i)] = blank_img;
+    //     }
+    // }
+
+
+    const rowsToMove = ((blank_index - clicked) / 4);
+    console.log("rowsToMove: " + rowsToMove);
+    if (rowsToMove > 0) {
+        for (let i = rowsToMove; i > 0; i--) {
+            // console.log('blank_img = ' + puzzleBoard[newBlank]);
+            // rowsToMove = 3
+            // clicked = 3
+            let temp = puzzleBoard[clicked + (4 * i)];
+            puzzleBoard[clicked + (4 * (i+1))] = temp; // + 12
+            console.log("clicked + (4 * i): " + (clicked + (4 * i)));
+            console.log('nowy blank: ' + (puzzleBoard[clicked + (4 * i)]));
+
+            // puzzleBoard[clicked + (4 * i)] = blank_img;
+        }
+        puzzleBoard[clicked] = blank_img;
+    }
+
+
+    if (blank_index === clicked + 1 || blank_index === clicked - 1) {
+        let blank_img = puzzleBoard[blank_index];
+        puzzleBoard[blank_index] = puzzleBoard[clicked];
+        puzzleBoard[clicked] = blank_img;
+    }
+    // puzzleBoard.splice(15,4);
+
     buildPuzzle();
-    console.log(element);
 }
 
 let sign = "X";
