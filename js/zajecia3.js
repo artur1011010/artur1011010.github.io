@@ -25,60 +25,35 @@ const buildPuzzle = () => {
 const playPuzzle = (element) => {
     // console.log("playPuzzle() " + element.id);
     const blank_index = puzzleBoard.findIndex(a => a === '3_3');
-    const clicked = puzzleBoard.findIndex(a => a === element.id);
-    let blank_img = puzzleBoard[blank_index];
-    console.log("blank index: " + blank_index);
-    console.log("clicked index: " + clicked);
+    let clicked_index = puzzleBoard.findIndex(a => a === element.id);
+    const blank_img = puzzleBoard[blank_index];
+    // console.log("blank index: " + blank_index);
+    // console.log("clicked index: " + clicked_index);
 
 
-    if (blank_index % 4 === clicked % 4) {
-        let blank_img = puzzleBoard[blank_index];
-        puzzleBoard[blank_index] = puzzleBoard[clicked];
-        puzzleBoard[clicked] = blank_img;
-    }
-
-    // blank = 15
-    // clicked = 7
-
-    //test -move 2 tiles down
-    // const rowsToMove = ((blank_index - clicked) / 4);
-    // console.log("rowsToMove: " + rowsToMove);
-    // if (rowsToMove > 0) {
-    //     for (let i = rowsToMove; i > 0; i--) {
-    //         console.log("loop");
-    //         let blank_img = puzzleBoard[blank_index];
-    //         console.log("clicked + (4 * i): " + (clicked + (4 * i)));
-    //         puzzleBoard[blank_index] = puzzleBoard[clicked + (4 * i)]; //11
-    //         puzzleBoard[clicked + (4 * i)] = blank_img;
-    //     }
-    // }
-
-
-    const rowsToMove = ((blank_index - clicked) / 4);
-    console.log("rowsToMove: " + rowsToMove);
-    if (rowsToMove > 0) {
-        for (let i = rowsToMove; i > 0; i--) {
-            // console.log('blank_img = ' + puzzleBoard[newBlank]);
-            // rowsToMove = 3
-            // clicked = 3
-            let temp = puzzleBoard[clicked + (4 * i)];
-            puzzleBoard[clicked + (4 * (i+1))] = temp; // + 12
-            console.log("clicked + (4 * i): " + (clicked + (4 * i)));
-            console.log('nowy blank: ' + (puzzleBoard[clicked + (4 * i)]));
-
-            // puzzleBoard[clicked + (4 * i)] = blank_img;
+    // dziala lewo -  prawo ale do naprawy na koncach
+    if (blank_index === clicked_index + 1 || blank_index === clicked_index - 1) {
+        puzzleBoard[blank_index] = puzzleBoard[clicked_index];
+        puzzleBoard[clicked_index] = blank_img;
+    } else {
+        let rowsToMove = ((blank_index - clicked_index) / 4);
+        // dziala pionowo w dol
+        if (rowsToMove > 0) {
+            for (let i = rowsToMove; i > 0; i--) {
+                puzzleBoard[clicked_index + (4 * i)] = puzzleBoard[clicked_index + (4 * (i - 1))];
+            }
+            puzzleBoard[clicked_index] = blank_img;
         }
-        puzzleBoard[clicked] = blank_img;
+        // dziala pionowo w gore
+        if (rowsToMove < 0) {
+            rowsToMove *= -1;
+            clicked_index = clicked_index - (rowsToMove * 4);
+            for (let i = 0; i < rowsToMove; i++) {
+                puzzleBoard[clicked_index + (4 * i)] = puzzleBoard[clicked_index + (4 * (i + 1))];
+            }
+            puzzleBoard[clicked_index + (rowsToMove * 4)] = blank_img;
+        }
     }
-
-
-    if (blank_index === clicked + 1 || blank_index === clicked - 1) {
-        let blank_img = puzzleBoard[blank_index];
-        puzzleBoard[blank_index] = puzzleBoard[clicked];
-        puzzleBoard[clicked] = blank_img;
-    }
-    // puzzleBoard.splice(15,4);
-
     buildPuzzle();
 }
 
